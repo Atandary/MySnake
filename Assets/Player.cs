@@ -30,11 +30,6 @@ namespace mySnake.Assets
             _borders = borders;
         }
 
-        public void GetPressedType(KeyType outsidePressedType)
-        {
-            _insidePressedType = outsidePressedType;
-        }
-
         public void Move(MoveDirection direction)
         {
             _prevPosition = _position;
@@ -69,10 +64,11 @@ namespace mySnake.Assets
         public void Tick()
         {
             _ticksFromLastMove++;
+            if (InputSystem.GetKeyDown(out _insidePressedType));
+            ChangeDirection();
             MovePlayer();
         }
 
-        //KeyType pressedKey вместо _insidePressedType
         public void ChangeDirection()
         {
             var rawPlayerMoveDirection = MoveDirectionConverter.ConvertMoveDirectionFromKeyType(_insidePressedType);
@@ -105,7 +101,7 @@ namespace mySnake.Assets
 
         public void Grow()
         {
-
+            throw new NotImplementedException();
         }
     }
 }

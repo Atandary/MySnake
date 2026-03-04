@@ -20,7 +20,7 @@ namespace mySnake.Assets
         private readonly DisplayInfo _displayInfoObject;
         //private readonly InputSystem _inputSystemObject;
         private readonly Player _playerObject;
-        private readonly Tail _tailObject;
+        private readonly List<Tail> _tails;
 
         private readonly List<IDrawable> _drawableCollection;
         private List<ITickable> _tickableCollection;
@@ -44,11 +44,11 @@ namespace mySnake.Assets
             //TODO: Rewrite to use new Borders ex
             _displayInfoObject = new DisplayInfo(DisplayInfoFieldWidth, DisplayInfoFieldHeight);
             _playerObject = new Player(new PointCoordinate(GameFieldWidth / 2, GameFieldHeight / 2), _borderObject);
-            _tailObject = new Tail(_playerObject);
+            _tails = new List<Tail>();
 
             _tickableCollection = new List<ITickable>();
             _tickableCollection.Add(_playerObject);
-            _tickableCollection.Add(_tailObject);
+            _tickableCollection.Add(_tails);
             _drawableCollection = new List<IDrawable>();
             _drawableCollection.Add(_borderObject);
             _drawableCollection.Add(_displayInfoObject);
