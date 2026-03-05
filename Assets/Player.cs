@@ -14,12 +14,15 @@ namespace mySnake.Assets
 
         private Borders _borders;
         private int _ticksFromLastMove;
-        public KeyType _insidePressedType;
+        private KeyType _insidePressedType;
+        private List<PointCoordinate> _tail = new List<PointCoordinate>();
+        private PointCoordinate tempTailPos;
 
 
         public MoveDirection playerMoveDirection = default;
         public MoveDirection newPlayerMoveDirection;
         public PointCoordinate _prevPosition;
+        
 
         public PointCoordinate PlayerPosition => _position;
         public Borders Borders => _borders;
@@ -53,18 +56,40 @@ namespace mySnake.Assets
                     throw new InvalidEnumArgumentException("Unknown enum direction value");
             }
             playerMoveDirection = direction;
+
+            
+            // TODO: Вынести в отдельный метод логики хвоста
+            if (_tail.Count >= 1)
+            {
+                _tail[0] = _prevPosition;
+
+                for (int i = 1; i < _tail.Count; i++)
+                {
+                    tempTailPos = _tail[i];
+                    _tail[i] = _tail[i - 1];
+                    _tail[i - 1] = tempTailPos;
+                }
+            }
         }
 
         public void Draw()
         {
             Console.SetCursorPosition(_position.X, _position.Y);
             Console.Write(SymbolsProvider.SnakeHead);
+
+            foreach (var partOfTail in _tail)
+            {
+                Console.SetCursorPosition(partOfTail.X, partOfTail.Y);
+                Console.Write(SymbolsProvider.SnakeTail);
+            }
         }
 
         public void Tick()
         {
             _ticksFromLastMove++;
-            if (InputSystem.GetKeyDown(out _insidePressedType));
+
+            InputSystem.GetKeyDown(out _insidePressedType);
+            Grow();
             ChangeDirection();
             MovePlayer();
         }
@@ -101,7 +126,8 @@ namespace mySnake.Assets
 
         public void Grow()
         {
-            throw new NotImplementedException();
+            if (_insidePressedType == KeyType.Grow)
+                _tail.Add(PlayerPosition);
         }
     }
 }
