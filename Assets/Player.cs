@@ -40,17 +40,17 @@ namespace mySnake.Assets
             switch (direction)
             {
                 case MoveDirection.Up:
-                    _position.Y = _position.Y <= _borders.Indent ? _borders.Indent : _position.Y - 1;
+                    _position.Y = _position.Y <= _borders.Indent - 1 ? _borders.Indent - 1 : _position.Y - 1;
                     break;
                 case MoveDirection.Down:
-                    _position.Y = _position.Y >= _borders.Height - 2 ? _borders.Height - 2 : _position.Y + 1;
+                    _position.Y = _position.Y >= _borders.Height - 1 ? _borders.Height - 1 : _position.Y + 1;
                     break;
                 case MoveDirection.Left:
                     // TODO: А если отступы?
-                    _position.X = _position.X <= 1 ? 1 : _position.X - 1;
+                    _position.X = _position.X <= 0 ? 0 : _position.X - 1;
                     break;
                 case MoveDirection.Right:
-                    _position.X = _position.X >= _borders.Width - 2 ? _borders.Width - 2 : _position.X + 1;
+                    _position.X = _position.X >= _borders.Width - 1 ? _borders.Width - 1 : _position.X + 1;
                     break;
                 default:
                     throw new InvalidEnumArgumentException("Unknown enum direction value");
@@ -92,6 +92,8 @@ namespace mySnake.Assets
             Grow();
             ChangeDirection();
             MovePlayer();
+            if (isDead())
+                GameManager.GameOver();
         }
 
         public void ChangeDirection()
@@ -128,6 +130,19 @@ namespace mySnake.Assets
         {
             if (_insidePressedType == KeyType.Grow)
                 _tail.Add(PlayerPosition);
+        }
+
+        public bool isDead()
+        {
+            return true switch
+            {
+                _ when _position.X == 0 => true,
+                _ when _position.X == _borders.Width - 1 => true,
+                _ when _position.Y == _borders.Height - 1 => true,
+                _ when _position.Y == _borders.Indent - 1 => true,
+                _ when _tail.Contains(_position) => true,
+                _ => false
+            };
         }
     }
 }

@@ -29,6 +29,7 @@ namespace mySnake.Assets
         {
             Console.WriteLine("Press any key to start");
             Console.ReadKey();
+            GameManager.GameStart();
 
             var gameLogic = new GameLogic();
             gameLogic.CoreLoop();
@@ -58,14 +59,20 @@ namespace mySnake.Assets
 
         private void CoreLoop()
         {
-            bool isExitRequired = false;
+            bool isExitReq = false;
             bool isPauseRequired = false;
             
             DrawFrame();
 
-            while (!isExitRequired)
+            while (!isExitReq)
             {
                 DoStaticTick();
+
+                if (isExitRequired())
+                {
+                    isExitReq = true;
+                    break;
+                }
 
                 DoTick();
 
@@ -91,11 +98,28 @@ namespace mySnake.Assets
             InputSystem.CatchInput();
         }
 
+        private bool isExitRequired()
+        {
+            KeyType _pressedTypeKey;
+            InputSystem.GetKeyDown(out _pressedTypeKey);
+
+            if (_pressedTypeKey == KeyType.Esc)
+            {
+                Console.Clear();
+                return true;
+            }
+
+            return false;
+        }
+
         private void DoTick()
         {
-            foreach (var tickableObj in _tickableCollection)
+            if (GameManager.IsGameRunning)
             {
-                tickableObj.Tick();
+                foreach (var tickableObj in _tickableCollection)
+                {
+                    tickableObj.Tick();
+                }
             }
         }
 
