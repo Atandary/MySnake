@@ -4,7 +4,7 @@ using System.Text;
 
 namespace mySnake.Assets.Contracts
 {
-    internal interface ICanSeePlayerPosition
+    public interface ICanSeePlayerPosition
     {
         public PointCoordinate PlayerPosition { get; }
     }

@@ -18,7 +18,6 @@ namespace mySnake.Assets
         private List<PointCoordinate> _tail = new List<PointCoordinate>();
         private PointCoordinate tempTailPos;
 
-
         public MoveDirection playerMoveDirection = default;
         public MoveDirection newPlayerMoveDirection;
         public PointCoordinate _prevPosition;

@@ -13,6 +13,7 @@ namespace mySnake.Assets
         MoveRight,
         Pause,
         Grow,
+        Food,
         Esc
     }
 }

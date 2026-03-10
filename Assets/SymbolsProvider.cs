@@ -8,7 +8,8 @@ namespace mySnake.Assets
     {
         public static char Border { get; } = '#';
         public static char DisplayBorder { get; } = '^';
-        public static char SnakeHead { get; } = '@';
-        public static char SnakeTail { get; } = '*';
+        public static char SnakeHead { get; } = 'H';
+        public static char SnakeTail { get; } = 't';
+        public static char FoodObject { get; } = 'f';
     }
 }

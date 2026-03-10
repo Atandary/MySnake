@@ -14,6 +14,7 @@ namespace mySnake.Assets
         }
         public static void GameOver()
         {
+            Console.SetCursorPosition(25, 25);
             Console.WriteLine("UMER");
             //IsGameRunning = false;
         }

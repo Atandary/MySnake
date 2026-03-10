@@ -22,6 +22,7 @@ namespace mySnake.Assets
                 ConsoleKey.D or ConsoleKey.RightArrow => KeyType.MoveRight,
                 ConsoleKey.P => KeyType.Pause,
                 ConsoleKey.G => KeyType.Grow,
+                ConsoleKey.F => KeyType.Food,
                 ConsoleKey.Escape => KeyType.Esc,
                 _ => KeyType.UnknownKey
             };
