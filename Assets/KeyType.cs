@@ -14,6 +14,6 @@ namespace mySnake.Assets
         Pause,
         Grow,
         Food,
-        Esc
+        Esc,
     }
 }

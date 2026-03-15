@@ -58,7 +58,19 @@ namespace mySnake.Assets
 
             
             // TODO: Вынести в отдельный метод логики хвоста
-            if (_tail.Count >= 1)
+
+            // NOTE: Альтернатива
+            //if (_tail.Count > 0)
+            //{
+            //    //_tail.Last();
+            //    //_ = _tail[^1];
+            //    var lastSegment = _tail[_tail.Count - 1];
+            //    //_tail.Remove(lastSegment);
+            //    _tail.Insert(0, lastSegment);
+            //    _tail.RemoveAt(_tail.Count - 1);
+            //}
+
+            if (_tail.Count > 0)
             {
                 _tail[0] = _prevPosition;
 
@@ -85,14 +97,15 @@ namespace mySnake.Assets
 
         public void Tick()
         {
-            _ticksFromLastMove++;
+            //_ticksFromLastMove++;
 
+            // TODO: добавить try паттерн
             InputSystem.GetKeyDown(out _insidePressedType);
             Grow();
             ChangeDirection();
             MovePlayer();
             if (isDead())
-                GameManager.GameOver();
+                GameManager.Instance.GameOver();
         }
 
         public void ChangeDirection()
@@ -127,6 +140,7 @@ namespace mySnake.Assets
 
         public void Grow()
         {
+            // Через out и в Moveplayer isGrowen(?)
             if (_insidePressedType == KeyType.Grow)
                 _tail.Add(PlayerPosition);
         }

@@ -62,6 +62,7 @@ namespace mySnake.Assets
             bool _isCorrectFoodPosition = false;
 
             while (!_isCorrectFoodPosition)
+                //TODO: Список доступных точек (все поле - змея - бордеры - еда)
                 GetRandomRawFoodPosition(out _isCorrectFoodPosition);
 
 
@@ -75,6 +76,7 @@ namespace mySnake.Assets
 
             randomFoodX = random.Next(_borders.Indent, _borders.Height - 1);
             randomFoodY = random.Next(1, _borders.Width - 1);
+
             PointCoordinate randomFoodPosition = new PointCoordinate(randomFoodX, randomFoodY);
 
             foreach (var food in FoodList)

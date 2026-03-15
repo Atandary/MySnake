@@ -30,7 +30,7 @@ namespace mySnake.Assets
         {
             Console.WriteLine("Press any key to start");
             Console.ReadKey();
-            GameManager.GameStart();
+            GameManager.Instance.GameStart();
 
             var gameLogic = new GameLogic();
             gameLogic.CoreLoop();
@@ -49,6 +49,7 @@ namespace mySnake.Assets
    
 
             _tickableCollection = new List<ITickable>();
+            _tickableCollection.Add(GameManager.Instance);
             _tickableCollection.Add(_playerObject);
             _tickableCollection.Add(_foodManager);
             _drawableCollection = new List<IDrawable>();
@@ -118,7 +119,8 @@ namespace mySnake.Assets
 
         private void DoTick()
         {
-            if (GameManager.IsGameRunning)
+            //TODO: Через ! и foreach ниже
+            if (GameManager.Instance.IsGameRunning)
             {
                 foreach (var tickableObj in _tickableCollection)
                 {

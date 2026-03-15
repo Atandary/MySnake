@@ -9,7 +9,7 @@ namespace mySnake.Assets
     {
         public int Width { get; private set; }
         public int Height { get; private set; }
-        public int Indent { get; private set; }
+        public int Indent { get; private set; } //NOTE: MarginUp
 
         public Borders(int width, int height, int indent)
         {
